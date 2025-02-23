@@ -26,7 +26,7 @@ function App() {
   }, [mode]);
 
   const fetchWord = async () => {
-    const res = await axios.get("http://localhost:5172/train");
+    const res = await axios.get("http://localhost:3001/train");
     setWord(res.data);
     setFlipped(false); // При загрузке нового слова сбрасываем переворот
   };
@@ -40,14 +40,14 @@ function App() {
   }
 
   const handleAddWords = async () => {
-    await axios.post("http://localhost:5172/words", { text });
+    await axios.post("http://localhost:3001/words", { text });
     setText("");
     setMode("menu");
   };
 
   const handleUpdateWord = async (action) => {
     if (!word) return;
-    await axios.post("http://localhost:5172/update", { id: word.id, action });
+    await axios.post("http://localhost:3001/update", { id: word.id, action });
     fetchWord();
   };
 
