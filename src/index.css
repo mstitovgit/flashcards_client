@@ -1,0 +1,10 @@
+
+*{
+  box-sizing: border-box;
+}
+
+:root{
+  --main-color: #AEFF3D;
+  --secondary-color: #FFDB3D;
+  --background-image:  url(./assets/background.jpg);
+}
