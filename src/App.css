@@ -1,12 +1,18 @@
 body {
   display: flex; /* Гарантирует, что #root займет всю высоту */
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
   background-image: var(--background-image);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+@media (width<648px){
+  body{
+  height: 100dvh;
+  }
 }
 
 .preloader {
