@@ -1,49 +1,80 @@
 body {
-  background-image: var(--background-image);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0;
-  min-height: 100vh;
-  width: 100%;
   display: flex; /* Гарантирует, что #root займет всю высоту */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  background-image: var(--background-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.loading {
+  background: none !important;
+}
+
+.loader-container {
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e8e8e8;
+}
+
+
 #root {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .container {
-  flex-grow: 1;
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
 button {
-  transition: 0.3s;
-  text-transform: lowercase;
-  padding: 24px 32px;
-  font-weight: bold;
-  background-color: var(--main-color);
-  border: 0;
-  border-radius: 50px;
+  font-family: var(--main-font), sans-serif;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 24px;
+  align-items: center;
+  border-radius: var(--button-border-radius);
+  padding: var(--padding-button);
+  color: var(--button-text-color);
+  font-weight: bold;
+  font-size: var(--button-font-size);
+  text-transform: lowercase;
+  background-color: var(--main-color);
+  transition: 0.3s;
   cursor: pointer;
 }
 
 .text-button {
-  font-style: italic;
-  font-size: 24px;
-  background-color: transparent;
   padding: 0;
   color: var(--secondary-color);
+  font-size: var(--button-font-size);
+  font-style: italic;
+  background-color: transparent;
 }
 
 .text-button:hover {
@@ -56,25 +87,25 @@ button {
 }
 
 .fill-button:hover {
-  box-shadow: 0px 4px 16px currentColor;
+  box-shadow: var(--button-shadow);
 }
 
 /* //START SCREEN// */
 
 .StartScreen {
-  flex-grow: 1;
   display: grid;
+  flex-grow: 1;
   grid-template-rows: 1fr 1fr 1fr;
-  padding: 40px;
   justify-items: center;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: var(--main-padding);
 }
 
 .MainButton {
   grid-row: 2;
-  font-size: 64px;
   color: var(--main-color);
+  font-size: var(--CTA-font-size);
 }
 
 .SecondaryButton {
@@ -88,86 +119,106 @@ button {
 .AddForm {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--main-padding);
+  width: calc(100% - var(--main-padding)); 
+  max-width: 600px;
+  min-width: 300px;
+  height: 80%;
+  min-height: 400px;
 }
 
 .card-container {
   display: flex;
-  border-radius: 24px;
-  gap: 40px;
-  padding: 40px;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  gap: var(--main-padding);
+  border-radius: var(--box-border-radius);
+  padding: var(--main-padding);
 }
 
 textarea {
-  resize: none;
-  font-family: "Inter", sans-serif;
+  width: 100%;
+  flex-grow: 1;
+  border: var(--glass-border);
+  border-radius: var(--box-border-radius);
+  padding: var(--main-padding);
+  overflow-y: auto;
+  color: var(--text-color);
+  font-family: var(--main-font), sans-serif;
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
-  font-size: 18px;
-  color: #fff;
-  padding: 40px;
-  border-radius: 24px;
-  width: 500px;
-  height: 400px;
-  overflow-y: scroll;
-  border: 1px solid #ffffff40;
+  font-size: var(--main-font-size);
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  resize: none;
 }
 
 textarea:focus {
-  outline: 1px solid #fff;
+  outline: var(--glass-border-focus);
 }
 
 textarea:focus-visible {
-  outline: 1px solid #fff;
+  outline: var(--glass-border-focus);
 }
 
 textarea::placeholder {
-  text-transform: lowercase;
+  color: var(--ph-color);
   font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
+  text-transform: lowercase;
 }
 
-
 /* //LEARNING// */
+.card-container{
+  inline-size: 100%;
+  max-inline-size: 600px;
+}
+
+.card-container p{
+  text-align: center;
+  font-family: var(--main-font), sans-serif;
+  font-size: var(--CTA-font-size);
+  color: var(--button-text-color);
+  font-weight: bold;
+  font-style: italic;
+  line-height: 80%;
+  opacity: 0.9;
+  
+}
+
 .card {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  inline-size: 500px;
-  block-size: 350px;
+  border-radius: var(--box-border-radius);
   perspective: 1000px;
   cursor: pointer;
-  border-radius: 24px;
+  width: 100%;
+  block-size: 350px;
 }
 
 .card-front,
 .card-back {
-  width: 100%;
-  height: 100%;
-  padding: 20px;
   position: absolute;
-  backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 24px;
-  overflow: hidden;
-  transition: transform 0.6s;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: var(--glass-border);
+  border-radius: var(--box-border-radius);
+  padding: var(--main-padding);
   box-shadow: 4px 0px 24px 0px rgba(0, 0, 0, 0.07);
-  font-family: "Inter", sans-serif;
-  font-size: 24px;
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
-  border: 1px solid #ffffff40;
+  overflow: hidden;
+  font-family: var(--main-font), sans-serif;
+  font-weight: bold;
+  font-size: var(--main-font-size);
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  transition: transform 0.6s;
+  backface-visibility: hidden;
 }
 
 .card-back {
@@ -184,7 +235,7 @@ textarea::placeholder {
 
 .buttons {
   display: flex;
-  gap: 24px;
+  gap: var(--buttons-gap);
   width: 100%;
 }
 
@@ -210,11 +261,11 @@ textarea::placeholder {
 }
 
 .audio-button {
-  background: none;
   border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
   color: #333;
+  font-size: 1.5rem;
+  background: none;
+  cursor: pointer;
 }
 
 .audio-button:hover {

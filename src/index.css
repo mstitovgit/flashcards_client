@@ -3,8 +3,51 @@
   box-sizing: border-box;
 }
 
+button{
+  border: 0;
+}
+
 :root{
+
+--main-font: "Inter";
   --main-color: #AEFF3D;
   --secondary-color: #FFDB3D;
+  --button-text-color: #000000d6;
+  --text-color: #fff;
+  --ph-color: rgba(255, 255, 255, 0.7);
+
+  --CTA-font-size: 64px;
+
+  --button-shadow:0px 4px 16px currentColor;
+
+  --main-padding:40px;
+  --buttons-gap:24px;
+
   --background-image:  url(./assets/background.jpg);
+
+  --main-font-size:18px;
+  --button-font-size:20px;
+
+  --padding-button: 24px 32px;
+
+  --button-border-radius:50px;
+  --box-border-radius:24px;
+
+  --glass-bg:rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(30px);
+  --glass-border: 1px solid #ffffff40;
+  --glass-border-focus: 1px solid #fff;
+}
+
+@media (width <648px){
+:root{
+  --main-padding:20px;
+  --buttons-gap:16px;
+    --button-font-size:18px;
+  --padding-button: 24px 24px;
+}
+
+.buttons{
+  flex-direction: column;
+}
 }

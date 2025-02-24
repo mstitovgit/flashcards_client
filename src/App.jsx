@@ -2,8 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./App.css"; // Подключаем стили
 import { FaVolumeUp } from 'react-icons/fa'
+import backgroundImage from "./assets/background.jpg";
+import { SyncLoader } from "react-spinners"
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("menu");
   const [word, setWord] = useState(null);
   const [text, setText] = useState("");
@@ -18,6 +21,8 @@ function App() {
     30 * 24 * 60 * 60 * 1000
   ];
   const audioRef = useRef(null);
+  const serverIp = "http://195.133.48.35:3001";
+  // const serverIp = "http://localhost:3001";
 
   useEffect(() => {
     if (mode === "train") {
@@ -25,8 +30,18 @@ function App() {
     }
   }, [mode]);
 
+  useEffect(() => {
+    console.log('image loading');
+    const img = new Image();
+    img.src = backgroundImage;
+    img.onload = () => {
+      console.log('image loaded');
+      setLoading(false);
+    }
+  }, []);
+
   const fetchWord = async () => {
-    const res = await axios.get("http://195.133.48.35:3001/train");
+    const res = await axios.get(`${serverIp}/train`);
     setWord(res.data);
     setFlipped(false); // При загрузке нового слова сбрасываем переворот
   };
@@ -40,20 +55,25 @@ function App() {
   }
 
   const handleAddWords = async () => {
-    await axios.post("http://195.133.48.35:3001/words", { text });
+    await axios.post(`${serverIp}/words`, { text });
     setText("");
     setMode("menu");
   };
 
   const handleUpdateWord = async (action) => {
     if (!word) return;
-    await axios.post("http://195.133.48.35:3001/update", { id: word.id, action });
+    await axios.post(`${serverIp}/update`, { id: word.id, action });
     fetchWord();
   };
 
   return (
-    <div className="container">
-      {mode === "menu" && (
+    <div className={`container ${loading ? "loading" : ""}`}>
+      {loading && <div className="loader-container">
+        <SyncLoader color="#333"  />
+      </div>}
+      {!loading && (
+        <>
+       {mode === "menu" && (
         <div className="StartScreen">
           <button className="text-button MainButton" onClick={() => setMode("train")}>
             Learn
@@ -92,7 +112,7 @@ function App() {
               <button className="audio-button" onClick={handlePlayAudio}>
                 <FaVolumeUp size={24} />
               </button>
-              <audio ref={audioRef} autoPlay src={`http://195.133.48.35:3001${word.audio_url}`} />
+              <audio ref={audioRef} autoPlay src={`${serverIp}${word.audio_url}`} />
             </div>
 
             {/* Задняя сторона с переводом */}
@@ -116,13 +136,15 @@ function App() {
 
       {mode === "train" && !word && (
         <div className="card-container">
-          <div className="card-front">
-          <h2>Нет слов для тренировки</h2>
+          
+          <p>no more words to train</p>
           <button className="text-button" onClick={() => setMode("menu")}>
             Back
           </button>
+        
         </div>
-        </div>
+      )}
+        </>
       )}
     </div>
   );
